@@ -13,16 +13,20 @@ export default function combineHandlers<ActionsMap, Services, Ret = any>(
     Object.keys(additionsMap).map(
       <Type extends keyof ActionsMap>(type: Type) => {
         // Init list if doesn't exist
-        const handlers = handlersByType[type] = handlersByType[type] || [];
+        const handlers = handlersByType[type] = (
+          handlersByType[type] || []
+        ) as T.Handler<T.Action<ActionsMap, Type>, Services, Ret>[];
 
         // Can add either single handler or list
         const newHandlers = additionsMap[type];
-        if (newHandlers instanceof Array) {
-          for (let handler of newHandlers) {
-            handlers.push(handler);
+        if (newHandlers) {
+          if (typeof newHandlers === 'function') {
+            handlers.push(newHandlers);
+          } else {
+            for (let handler of newHandlers) {
+              handlers.push(handler);
+            }
           }
-        } else if (newHandlers) {
-          handlers.push(newHandlers);
         }
       }
     );
@@ -32,6 +36,6 @@ export default function combineHandlers<ActionsMap, Services, Ret = any>(
   // array of results.
   return (action, services) => {
     const handlers = handlersByType[action.type] || [];
-    return handlers.map(h => h(action, services));
+    return handlers!.map(h => h(action, services));
   };
 }
