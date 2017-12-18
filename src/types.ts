@@ -46,13 +46,18 @@ export type HandlerAdditionsMap<ActionsMap, Services, Ret> = {
   );
 };
 
+// Dispatch function
+export interface DispatchFn<ActionsMap, Ret> {
+  <Type extends keyof ActionsMap>(
+    action: Action<ActionsMap, Type>
+  ): Ret;
+}
+
 // Provides services to action dispatch
 export interface Dispatcher<ActionsMap, Services, Ret> {
 
   // Call handlers on action
-  dispatch<Type extends keyof ActionsMap>(
-    action: Action<ActionsMap, Type>
-  ): Ret;
+  dispatch: DispatchFn<ActionsMap, Ret>;
 
   // Services are public. Modifying the available services isn't necessarily
   // an advisable thing, but we make it public for ease of mocking, etc.

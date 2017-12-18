@@ -12,6 +12,7 @@
   "homepage": "https://github.com/fongandrew/ts-boilerplate",
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "^16.0.22",
     "@types/sinon": "^2.3.2",
     "@types/tape": "^4.2.30",
     "sinon": "^2.3.7",
@@ -19,9 +20,10 @@
     "tape": "^4.8.0",
     "ts-node": "^3.1.0",
     "tslint": "^5.4.3",
-    "typescript": "^2.4.1"
+    "typescript": "2.6.1"
   },
   "dependencies": {
+    "react": "^16.1.0",
     "tslib": "^1.7.1"
   },
   "files": [

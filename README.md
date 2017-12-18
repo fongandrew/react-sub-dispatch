@@ -47,3 +47,14 @@ Or could use alt context set by provider ...
   <MyApp />
 </Provider>
 ```
+
+```ts
+connect((ownProps, services, dispatch) => ({
+  ...subscribe({
+    data1: subscribeToX(props),
+    data2: subscribeToY(props)
+  }),
+  onClick: () => dispatch({ type: 'INCR', value: 123 }),
+  otherProp: ownProps.value
+}));
+```
